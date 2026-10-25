@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f3ed">
+<meta name="description" content="Лиза, кое-что для тебя.">
+<title>Для Лизы</title>
+<style>
+:root{--bg:#f5f3ed;--ink:#30332e;--muted:#7b7d74;--accent:#df6948;--line:#d9dbd0;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:8px}::selection{background:#e6b49e}button:disabled{cursor:default}button[hidden],[hidden]{display:none!important}
+.app{height:100svh;min-height:590px;position:relative;display:grid;grid-template-rows:90px 1fr 90px;overflow:hidden;padding:0 48px}.header{display:flex;align-items:center;justify-content:space-between}.signature{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}.signature:before{content:'';height:5px;width:5px;background:var(--accent);border-radius:50%}.back{border:0;background:none;padding:12px 0 12px 12px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}.back:hover{color:var(--ink)}.back svg{width:16px;height:16px}.back[hidden]{display:block!important;visibility:hidden}.content{position:relative;display:grid;align-items:center;justify-items:center}.screen{grid-area:1/1;text-align:center;width:100%;max-width:600px;animation:arrive .7s var(--ease) both;padding:10px 0 22px}.screen.leaving{animation:leave .28s ease-in both;pointer-events:none}.eyebrow{font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:var(--muted);margin:0 0 25px}h1,h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(68px,8.2vw,108px);font-weight:400;line-height:.98;letter-spacing:-5px;margin:0;outline:none}h1 em,h2 em{font-weight:400;color:var(--accent)}.greeting h1{font-size:clamp(78px,9vw,116px)}
+.envelope-button{position:relative;display:block;width:170px;height:144px;margin:39px auto 0;background:none;border:0;padding:0;isolation:isolate}.envelope{position:absolute;width:135px;height:91px;left:17px;top:15px;transform:rotate(-7deg);transition:transform .6s var(--ease)}.envelope-back{position:absolute;inset:0;background:#dedccf;border-radius:5px;box-shadow:0 12px 24px #363e2912}.note{position:absolute;background:#fffdf6;width:104px;height:69px;left:15px;top:13px;border-radius:2px;display:grid;place-items:center;transition:transform .7s var(--ease);font-family:Georgia,serif;font-style:italic;color:var(--accent);font-size:26px}.envelope-front{position:absolute;inset:0;z-index:3;background:#e8e4d8;clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);border-radius:5px}.flap{position:absolute;inset:0;background:#d6d2c5;clip-path:polygon(0 0,100% 0,50% 60%);transform-origin:50% 0;transition:transform .5s var(--ease);z-index:4}.seal{width:19px;height:19px;position:absolute;top:42px;left:58px;border-radius:50%;background:var(--accent);z-index:5;transition:opacity .2s}.envelope-button:hover .envelope{transform:rotate(-2deg) translateY(-5px)}.envelope-button.open .envelope{transform:rotate(0)}.envelope-button.open .flap{transform:rotateX(180deg);z-index:0}.envelope-button.open .seal{opacity:0}.envelope-button.open .note{transform:translateY(-35px)}.envelope-label{position:absolute;bottom:0;left:0;right:0;font-size:12px;color:var(--muted);letter-spacing:.4px}.envelope-button:hover .envelope-label{color:var(--accent)}
+.idea h2{font-size:clamp(64px,7.5vw,92px)}.connector{width:min(320px,82vw);height:140px;position:relative;margin:50px auto 0;--progress:0}.track{position:absolute;left:26px;right:26px;top:37px;height:1px;background:repeating-linear-gradient(to right,#c6c9be 0 4px,transparent 4px 10px)}.track-fill{height:2px;position:absolute;left:26px;right:26px;top:37px;background:var(--accent);transform:scaleX(var(--progress));transform-origin:left center}.point{width:52px;height:52px;border-radius:50%;position:absolute;top:11px;display:grid;place-items:center;padding:0}.from{left:calc((100% - 52px)*var(--progress));border:0;background:var(--accent);color:#fff;touch-action:none;z-index:3;box-shadow:0 5px 20px #df69481a;transition:box-shadow .2s}.from svg{width:19px;height:19px}.from:hover{box-shadow:0 0 0 7px #df694815}.to{right:0;background:var(--bg);border:1px solid #c6c9be;transition:background .3s,border-color .3s}.to:before{content:'';width:7px;height:7px;border-radius:50%;background:#a0a793;transition:background .3s}.connector.joined .to{border-color:var(--accent);background:#f0d4c7}.connector.joined .to:before{background:var(--accent)}.point-name{position:absolute;top:82px;font-family:Georgia,serif;font-size:22px;font-style:italic}.name-from{left:14px}.name-to{right:18px}.hint{font-size:12px;color:var(--muted);margin:0;letter-spacing:.2px}.connector:not(.dragging) .from,.connector:not(.dragging) .track-fill{transition:all .65s var(--ease)}
+.invite .tiny-path{width:90px;height:55px;display:block;margin:0 auto 26px;color:var(--accent)}.invite h2{font-size:clamp(76px,8.7vw,110px)}.cta{display:inline-flex;align-items:center;justify-content:center;gap:27px;text-decoration:none;background:var(--ink);color:#fbf9f4;border-radius:100px;padding:19px 27px;font-size:14px;margin-top:37px;transition:background .2s,transform .2s}.cta:hover{background:var(--accent);transform:translateY(-2px)}.cta svg{width:16px;height:16px}.telegram-note{font-size:11px;color:var(--muted);margin:15px 0 0}.footer{display:flex;justify-content:center;align-items:center;gap:11px}.step{width:5px;height:5px;border-radius:50%;background:#cdd0c5;transition:background .3s,transform .3s}.step.current{background:var(--accent);transform:scale(1.3)}.step.done{background:#7c8375}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}noscript{position:fixed;inset:0;background:var(--bg);display:grid;place-content:center;text-align:center;z-index:50;padding:30px}noscript p{font:48px Georgia,serif}
+@keyframes arrive{from{opacity:0;transform:translateY(20px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}@keyframes leave{to{opacity:0;transform:translateY(-14px);filter:blur(4px)}}
+@media(max-width:600px){.app{padding:0 26px;grid-template-rows:75px 1fr 70px;min-height:560px}.signature{font-size:9px;letter-spacing:2px}.back{font-size:11px}.screen{padding-bottom:28px}h1,h2{letter-spacing:-3.5px}.eyebrow{font-size:10px;margin-bottom:24px}.envelope-button{margin-top:35px}.connector{margin-top:43px}.cta{font-size:14px;margin-top:33px;padding:18px 25px}.invite .tiny-path{margin-bottom:26px}}
+@media(max-height:680px){.app{grid-template-rows:64px 1fr 54px}.screen{padding-bottom:10px}.greeting h1{font-size:80px}.envelope-button{margin-top:25px}.invite h2{font-size:78px}.invite .tiny-path{height:35px;margin-bottom:15px}.connector{margin-top:26px}.cta{margin-top:25px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header"><span class="signature">Для Лизы</span><button class="back" id="back" type="button" hidden><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m9 5-5 5 5 5M4 10h12" stroke="currentColor" stroke-width="1.3"/></svg>Назад</button></header>
+<main class="content">
+<section class="screen greeting" id="screen-0" aria-labelledby="title-0">
+<h1 id="title-0" tabindex="-1">Лиза,<br><em>привет.</em></h1>
+<button class="envelope-button" id="open" type="button" aria-label="Открыть приглашение"><span class="envelope" aria-hidden="true"><span class="envelope-back"></span><span class="note">:)</span><span class="flap"></span><span class="envelope-front"></span><span class="seal"></span></span><span class="envelope-label">Открыть</span></button>
+</section>
+<section class="screen idea" id="screen-1" aria-labelledby="title-1" hidden>
+<h2 id="title-1" tabindex="-1">Есть <em>идея.</em></h2>
+<div class="connector" id="connector"><div class="track" aria-hidden="true"></div><div class="track-fill" aria-hidden="true"></div><button class="point from" id="from" type="button" aria-label="Соединить ты и я — потяни вправо или нажми" aria-describedby="connect-hint"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="point to" id="to" type="button" aria-label="Соединить точки и увидеть приглашение"></button><span class="point-name name-from" aria-hidden="true">ты</span><span class="point-name name-to" aria-hidden="true">я</span></div>
+<p class="hint" id="connect-hint">Соедини точки</p>
+</section>
+<section class="screen invite" id="screen-2" aria-labelledby="title-2" hidden>
+<svg class="tiny-path" viewBox="0 0 90 55" fill="none" aria-hidden="true"><path d="M13 37C23 4 65 51 78 17" stroke="currentColor" stroke-width="1.3" stroke-dasharray="3 5"/><circle cx="10" cy="39" r="4" fill="currentColor"/><circle cx="80" cy="13" r="4" fill="currentColor"/></svg>
+<h2 id="title-2" tabindex="-1">Пойдём<br><em>гулять?</em></h2>
+<a class="cta" href="https://t.me/dano3868" target="_blank" rel="noopener noreferrer"><span>Давай обсудим</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a><p class="telegram-note">в Telegram</p>
+</section>
+</main>
+<footer class="footer" aria-label="Шаг 1 из 3" id="progress"><span class="step current" aria-hidden="true"></span><span class="step" aria-hidden="true"></span><span class="step" aria-hidden="true"></span></footer>
+</div>
+<noscript><p>Лиза,<br>пойдём гулять?</p><a href="https://t.me/dano3868">Давай обсудим в Telegram ↗</a></noscript>
+<script>
+const screens=[0,1,2].map(i=>document.getElementById('screen-'+i));
+const back=document.getElementById('back');
+const openButton=document.getElementById('open');
+const connector=document.getElementById('connector');
+const from=document.getElementById('from');
+const to=document.getElementById('to');
+const progress=document.getElementById('progress');
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let step=0,busy=false,drag=null,suppressClick=false;
+const delay=ms=>new Promise(resolve=>setTimeout(resolve,reduced?0:ms));
+function setProgress(value){connector.style.setProperty('--progress',String(value));}
+async function show(next){
+ if(next<0||next>2||next===step)return;
+ busy=true;back.disabled=true;
+ const previous=screens[step];previous.classList.add('leaving');
+ await delay(260);
+ previous.hidden=true;previous.classList.remove('leaving');
+ step=next;
+ if(step===0){openButton.classList.remove('open');openButton.disabled=false;}
+ if(step===1){setProgress(0);connector.classList.remove('joined','dragging');from.disabled=false;to.disabled=false;}
+ screens[step].hidden=false;
+ back.hidden=step===0;
+ progress.setAttribute('aria-label','Шаг '+(step+1)+' из 3');
+ [...progress.children].forEach((el,i)=>{el.classList.toggle('current',i===step);el.classList.toggle('done',i<step);});
+ document.getElementById('title-'+step).focus({preventScroll:true});
+ busy=false;back.disabled=false;
+}
+openButton.addEventListener('click',async()=>{
+ if(busy||step!==0)return;
+ busy=true;openButton.disabled=true;openButton.classList.add('open');
+ await delay(720);await show(1);
+});
+async function join(){
+ if(busy||step!==1)return;
+ busy=true;back.disabled=true;from.disabled=true;to.disabled=true;
+ connector.classList.remove('dragging');connector.classList.add('joined');setProgress(1);
+ await delay(780);await show(2);
+}
+from.addEventListener('pointerdown',event=>{
+ if(busy||step!==1||event.button!==0)return;
+ drag={id:event.pointerId,start:event.clientX,travel:Math.max(1,connector.getBoundingClientRect().width-52),value:0,moved:false};
+ from.setPointerCapture(event.pointerId);connector.classList.add('dragging');
+});
+from.addEventListener('pointermove',event=>{
+ if(!drag||drag.id!==event.pointerId)return;
+ const distance=event.clientX-drag.start;
+ if(Math.abs(distance)>5)drag.moved=true;
+ drag.value=Math.max(0,Math.min(1,distance/drag.travel));setProgress(drag.value);
+});
+from.addEventListener('pointerup',event=>{
+ if(!drag||drag.id!==event.pointerId)return;
+ const finished=drag.value>.82;
+ suppressClick=drag.moved;drag=null;connector.classList.remove('dragging');
+ if(from.hasPointerCapture(event.pointerId))from.releasePointerCapture(event.pointerId);
+ if(finished)join();else setProgress(0);
+});
+function cancelDrag(){if(!drag)return;drag=null;suppressClick=true;connector.classList.remove('dragging');setProgress(0);}
+from.addEventListener('pointercancel',cancelDrag);
+from.addEventListener('lostpointercapture',cancelDrag);
+from.addEventListener('click',event=>{if(suppressClick&&event.detail!==0){suppressClick=false;return;}suppressClick=false;join();});
+to.addEventListener('click',join);
+back.addEventListener('click',()=>{if(!busy&&step>0){drag=null;suppressClick=false;show(step-1);}});
+</script>
+</body>
+</html>
